@@ -1,9 +1,13 @@
-require("dotenv").config();
+// load environment variables
+require("dotenv").config(); 
 
-const app = require("../app");
+// import Express app
+const app = require("../app"); 
 
-const PORT = process.env.PORT || 3002;
+// use env port or default
+const PORT = process.env.PORT || 3002; 
 
+// start the server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

@@ -1,26 +1,34 @@
 const mongoose = require("mongoose");
-require("dotenv").config();
+// load environment variables from .env
+require("dotenv").config(); 
 
-const dbURI = process.env.MONGO_URI;
+// MongoDB connection string
+const dbURI = process.env.MONGO_URI; 
 
-mongoose.connect(dbURI);
+// connect to MongoDB
+mongoose.connect(dbURI); 
 
+// connection successful
 mongoose.connection.on("connected", () => {
     console.log("Mongoose connected to MongoDB Atlas");
 });
 
+// connection error
 mongoose.connection.on("error", (err) => {
     console.log("Mongoose connection error: " + err);
 });
 
+// connection disconnected
 mongoose.connection.on("disconnected", () => {
     console.log("Mongoose disconnected");
 });
 
+// close connection when app is terminated
 process.on("SIGINT", async () => {
     await mongoose.connection.close();
     console.log("Mongoose disconnected through app termination");
     process.exit(0);
 });
 
-module.exports = mongoose;
+// export mongoose instance
+module.exports = mongoose; 
