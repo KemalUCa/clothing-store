@@ -78,3 +78,54 @@ exports.deleteProduct = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// INTEGRATION - GET all products from Group 7 stores
+exports.getAllGroupProducts = async (req, res) => {
+    try {
+        // my products from MongoDB
+        const myProducts = await Product.find();
+
+        // my teammates' deployed links
+        const farhaUrl = "https://farha-store-link.onrender.com/products";
+        const aliUrl = "https://ali-store-link.onrender.com/products";
+
+        let farhaProducts = [];
+        let aliProducts = [];
+
+        // Farha products
+        try {
+            const farhaResponse = await fetch(farhaUrl);
+
+            if (!farhaResponse.ok) {
+                console.log(`Farha API error: ${farhaResponse.status}`);
+            } else {
+                farhaProducts = await farhaResponse.json();
+            }
+        } catch (error) {
+            console.log("Could not load Farha's products:", error.message);
+        }
+
+        // Ali products
+        try {
+            const aliResponse = await fetch(aliUrl);
+
+            if (!aliResponse.ok) {
+                console.log(`Ali API error: ${aliResponse.status}`);
+            } else {
+                aliProducts = await aliResponse.json();
+            }
+        } catch (error) {
+            console.log("Could not load Ali's products:", error.message);
+        }
+
+        const allProducts = [
+            ...myProducts,
+            ...farhaProducts,
+            ...aliProducts
+        ];
+
+        res.status(200).json(allProducts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
