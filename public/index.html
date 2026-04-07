@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Clothing Store API Tester</title>
+<style>
+  body { font-family: Arial; margin: 20px; }
+  form { margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; }
+  input, button { margin: 5px; padding: 5px; }
+  pre { background: #f4f4f4; padding: 10px; }
+</style>
+</head>
+<body>
+
+<h1>Clothing Store API Tester</h1>
+
+<h2>Create Product</h2>
+<form id="createForm">
+  <input type="number" id="storeId" placeholder="Store ID" required>
+  <input type="text" id="storeName" placeholder="Store Name" required>
+  <input type="number" id="productId" placeholder="Product ID" required>
+  <input type="text" id="productName" placeholder="Product Name" required>
+  <input type="number" id="price" placeholder="Price" required>
+  <button type="submit">Create</button>
+</form>
+
+<h2>Get All Products</h2>
+<button onclick="getAll()">Fetch All</button>
+
+<h2>Get Product</h2>
+<input type="number" id="getId" placeholder="Product ID">
+<button onclick="getOne()">Fetch</button>
+
+<h2>Delete Product</h2>
+<input type="number" id="deleteId" placeholder="Product ID">
+<button onclick="deleteProduct()">Delete</button>
+
+<h2>Response</h2>
+<pre id="output">{}</pre>
+
+<script>
+const output = document.getElementById("output");
+
+function show(data) {
+  output.textContent = JSON.stringify(data, null, 2);
+}
+
+// CREATE
+document.getElementById("createForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    storeId: document.getElementById("storeId").value,
+    storeName: document.getElementById("storeName").value,
+    productId: document.getElementById("productId").value,
+    productName: document.getElementById("productName").value,
+    price: document.getElementById("price").value
+  };
+
+  const res = await fetch("/products", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  show(await res.json());
+});
+
+// GET ALL
+async function getAll() {
+  const res = await fetch("/products");
+  show(await res.json());
+}
+
+// GET ONE
+async function getOne() {
+  const id = document.getElementById("getId").value;
+  const res = await fetch(`/products/${id}`);
+  show(await res.json());
+}
+
+// DELETE
+async function deleteProduct() {
+  const id = document.getElementById("deleteId").value;
+  const res = await fetch(`/products/${id}`, { method: "DELETE" });
+  show(await res.json());
+}
+</script>
+
+</body>
+</html>
