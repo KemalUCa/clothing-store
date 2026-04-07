@@ -1,4 +1,6 @@
 const Product = require("../models/productModel");
+const fetch = (...args) =>
+    import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 // CREATE
 exports.createProduct = async (req, res) => {
@@ -86,8 +88,8 @@ exports.getAllGroupProducts = async (req, res) => {
         const myProducts = await Product.find();
 
         // my teammates' deployed links
-        const farhaUrl = "https://farha-store-link.onrender.com/products";
-        const aliUrl = "https://ali-store-link.onrender.com/products";
+        const farhaUrl = "";
+        const aliUrl = "https://book-store-9yxy.onrender.com/products";
 
         let farhaProducts = [];
         let aliProducts = [];
