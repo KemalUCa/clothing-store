@@ -1,3 +1,4 @@
+// import mongoose for MongoDB connection
 const mongoose = require("mongoose");
 
 // define schema for product
@@ -27,4 +28,5 @@ const productSchema = new mongoose.Schema({
 // create model
 const Product = mongoose.model("Product", productSchema);
 
+// export model
 module.exports = Product;

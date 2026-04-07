@@ -1,3 +1,4 @@
+// import mongoose for MongoDB connection
 const mongoose = require("mongoose");
 // load environment variables from .env
 require("dotenv").config(); 

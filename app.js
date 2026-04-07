@@ -4,7 +4,8 @@ require("dotenv").config();
 // import required modules
 const express = require("express");
 const path = require("path");
-require("./models/db"); // connect to MongoDB
+// connect to MongoDB
+require("./models/db"); 
 
 // import routes
 const productRoutes = require("./routes/productRoutes");
