@@ -1,69 +1,69 @@
+// run commands from terminal
 const { execSync } = require("child_process");
-const fs = require("fs");
 
+// list of tests with their commands and emails
 const tests = [
     {
-        file: "tests/kemal.test.js",
         email: "kemalucler@gmail.com",
         command: "npx jest tests/kemal.test.js --runInBand --silent"
     },
     {
-        file: "tests/ali.test.js",
         email: "demi0067@algonquinlive.com",
         command: "node tests/ali.test.js"
     },
     {
-        file: "tests/farha.test.js",
+        // Farha did not provide a URL, so it is a dummy command that will fail
         email: "farha@example.com",
         command: "npx jest tests/farha.test.js --runInBand --silent"
     }
 ];
 
+// run each test one by one
 for (const item of tests) {
-    if (!fs.existsSync(item.file)) {
-        console.log(`${item.email} - getAll to show all product - ERROR - FAILED`);
-        continue;
-    }
-
     try {
+        // execute test and capture output
         const output = execSync(item.command, {
             encoding: "utf8",
             stdio: "pipe"
         });
 
+        // split output into lines
         const lines = output.split("\n");
 
-        let customLineFound = false;
+        let printed = false;
 
+        // check if test already printed result line
         for (const line of lines) {
             if (line.includes("@") && (line.includes("PASSED") || line.includes("FAILED"))) {
                 console.log(line.trim());
-                customLineFound = true;
+                printed = true;
                 break;
             }
         }
 
-        if (!customLineFound) {
+        // if no result line, assume test passed
+        if (!printed) {
             console.log(`${item.email} - getAll to show all product - 200 - PASSED`);
         }
 
     } catch (error) {
-        const stdout = error.stdout ? error.stdout.toString() : "";
-        const stderr = error.stderr ? error.stderr.toString() : "";
-        const combinedOutput = `${stdout}\n${stderr}`;
-        const lines = combinedOutput.split("\n");
+        // get error output if test failed
+        const output = (error.stdout || "") + (error.stderr || "");
+        const lines = output.split("\n");
 
-        let customLineFound = false;
+        let printed = false;
 
+        // try to find result line in error output
         for (const line of lines) {
             if (line.includes("@") && (line.includes("PASSED") || line.includes("FAILED"))) {
                 console.log(line.trim());
-                customLineFound = true;
+                printed = true;
                 break;
             }
         }
 
-        if (!customLineFound) {
+        // if nothing found, print default fail message
+        if (!printed) {
             console.log(`${item.email} - getAll to show all product - ERROR - FAILED`);
         }
     }

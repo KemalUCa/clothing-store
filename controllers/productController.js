@@ -88,7 +88,7 @@ exports.getAllGroupProducts = async (req, res) => {
         const myProducts = await Product.find();
 
         // my teammates' deployed links
-        const farhaUrl = "";
+        const farhaUrl = "";  // Farha did not provide a URL
         const aliUrl = "https://ali-bookstore.onrender.com/products";
 
         let farhaProducts = [];
