@@ -1,75 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Group 7 Store</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Group 7 Store</title>
 
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background: #f0f4f8; color: #222; }
-    h1 { text-align: center; color: #222; margin-bottom: 10px; }
-    h3 { margin-top: 0; font-size: 22px; }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #eef2f7;
+  color: #222;
+}
 
-    .subtitle { text-align: center; color: #666; margin-bottom: 25px; }
+h1 {
+  text-align: center;
+  margin-bottom: 5px;
+}
 
-    .stores-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
+}
 
-    .store-card {
-      border-radius: 12px;
-      padding: 18px;
-      color: white;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    }
+button {
+  display: block;
+  margin: 0 auto 30px;
+  padding: 10px 20px;
+  border: none;
+  background: #1661bc;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
 
-    .clothing { background: linear-gradient(135deg,#ff7e5f,#feb47b); }
-    .electronics { background: linear-gradient(135deg,#43cea2,#185a9d); }
-    .books { background: linear-gradient(135deg,#8360c3,#2ebf91); }
+button:hover {
+  background: #0d4c94;
+}
 
-    .store-card ul { padding-left: 20px; margin: 0; }
-  </style>
+.store-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.clothing {
+  border-left: 8px solid #ff7e5f;
+}
+
+.books {
+  border-left: 8px solid #8360c3;
+}
+
+.electronics {
+  border-left: 8px solid #43cea2;
+}
+
+h3 {
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #1661bc;
+  color: white;
+  text-align: center;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+  width: 22%;
+  text-align: center;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 48%;
+  text-align: left;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 30%;
+  text-align: right;
+}
+
+tr:hover {
+  background: #f5f9ff;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #666;
+}
+</style>
 </head>
 
 <body>
 
-<h1>🛍️ Group 7 Store</h1>
-<p class="subtitle">Integrating Clothing, Electronics, and Book Stores</p>
+<h1>Group 7 Store</h1>
+<p class="subtitle">Integrated Products View</p>
 
-<button onclick="loadGroupStores()">Load Group 7 Products</button>
+<button onclick="loadGroupStores()">Load Products</button>
 
-<div class="stores-container">
-
-  <div class="store-card clothing">
-    <h3>👕 Clothing Store (Kemal)</h3>
-    <ul id="clothingList"></ul>
-  </div>
-
-  <div class="store-card electronics">
-    <h3>💻 Electronics Store (Farha)</h3>
-    <ul id="electronicsList"></ul>
-  </div>
-
-  <div class="store-card books">
-    <h3>📚 Book Store (Ali)</h3>
-    <ul id="booksList"></ul>
-  </div>
-
+<div class="store-card clothing">
+  <h3>Clothing Store (Kemal)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody id="clothingTable"></tbody>
+  </table>
 </div>
 
+<div class="store-card books">
+  <h3>Book Store (Ali)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody id="booksTable"></tbody>
+  </table>
+</div>
+
+<div class="store-card electronics">
+  <h3>Electronics Store (Farha)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody id="electronicsTable"></tbody>
+  </table>
+</div>
+
+<footer>
+  <p>
+    This project is a student work created for educational purposes only.
+    It is not intended for commercial use and may contain simulated or incomplete data.
+  </p>
+</footer>
 
 <script>
-function renderList(id, products) {
-  const list = document.getElementById(id);
-  list.innerHTML = "";
+function renderTable(id, products) {
+  const table = document.getElementById(id);
+  table.innerHTML = "";
 
-  products.forEach(p => {
-    const li = document.createElement("li");
-    li.textContent = `${p.productName} - $${p.price}`;
-    list.appendChild(li);
+  products.forEach((p) => {
+    const row = document.createElement("tr");
+    const formattedPrice = `$${Number(p.price).toFixed(2)}`;
+
+    row.innerHTML = `
+      <td>${p.productId}</td>
+      <td>${p.productName}</td>
+      <td>${formattedPrice}</td>
+    `;
+
+    table.appendChild(row);
   });
 }
 
@@ -77,9 +194,20 @@ async function loadGroupStores() {
   const res = await fetch("/all-products");
   const data = await res.json();
 
-  renderList("clothingList", data.filter(p => p.storeName?.toLowerCase().includes("clothing")));
-  renderList("electronicsList", data.filter(p => p.storeName?.toLowerCase().includes("electronics")));
-  renderList("booksList", data.filter(p => p.storeName?.toLowerCase().includes("book")));
+  renderTable(
+    "clothingTable",
+    data.filter((p) => p.storeName?.toLowerCase().includes("clothing"))
+  );
+
+  renderTable(
+    "booksTable",
+    data.filter((p) => p.storeName?.toLowerCase().includes("book"))
+  );
+
+  renderTable(
+    "electronicsTable",
+    data.filter((p) => p.storeName?.toLowerCase().includes("electronics"))
+  );
 }
 
 loadGroupStores();

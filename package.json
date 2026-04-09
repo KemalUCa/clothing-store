@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "nodemon server/server.js",
-    "test": "jest",
+    "test": "node runMyTest.js",
     "automate": "node automate.js"
   },
   "keywords": [],

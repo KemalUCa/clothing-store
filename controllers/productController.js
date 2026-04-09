@@ -89,7 +89,7 @@ exports.getAllGroupProducts = async (req, res) => {
 
         // my teammates' deployed links
         const farhaUrl = "";
-        const aliUrl = "https://book-store-9yxy.onrender.com/products";
+        const aliUrl = "https://ali-bookstore.onrender.com/products";
 
         let farhaProducts = [];
         let aliProducts = [];

@@ -1,92 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>API Tester</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Tester</title>
 
-<style>
-  body { font-family: Arial; margin: 20px; }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f7fb;
+      color: #222;
+    }
 
-  form { margin-bottom: 20px; padding: 15px; border:1px solid #ddd; border-radius:10px; }
+    h1 {
+      margin-bottom: 10px;
+    }
 
-  input, button { margin:5px; padding:5px; }
+    a {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #1661bc;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-  pre { background:#222; color:#0f0; padding:10px; }
-</style>
+    a:hover {
+      text-decoration: underline;
+    }
+
+    form, .section {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    input, button {
+      margin: 5px;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+
+    input {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      border: none;
+      background: #1661bc;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0d4c94;
+    }
+
+    pre {
+      background: #222;
+      color: #0f0;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+      min-height: 120px;
+    }
+  </style>
 </head>
 
 <body>
 
-<h1>Clothing Store API Tester</h1>
+  <h1>Clothing Store API Tester</h1>
 
-<a href="/">Back to Store</a>
+  <a href="/">Back to Store</a>
 
-<h3>Create Product</h3>
-<form id="createForm">
-  <input type="number" id="storeId" placeholder="Store ID" required />
-  <input type="text" id="storeName" placeholder="Store Name" required />
-  <input type="number" id="productId" placeholder="Product ID" required />
-  <input type="text" id="productName" placeholder="Product Name" required />
-  <input type="number" id="price" placeholder="Price" required />
-  <button type="submit">Create Product</button>
-</form>
+  <h3>Create Product</h3>
+  <form id="createForm">
+    <input type="number" id="storeId" placeholder="Store ID" required />
+    <input type="text" id="storeName" placeholder="Store Name" required />
+    <input type="number" id="productId" placeholder="Product ID" required />
+    <input type="text" id="productName" placeholder="Product Name" required />
+    <input type="number" id="price" placeholder="Price" step="0.01" min="0" required />
+    <button type="submit">Create Product</button>
+  </form>
 
-<h3>Get All Products</h3>
-<button onclick="getAll()">Fetch All</button>
+  <div class="section">
+    <h3>Get All Products</h3>
+    <button onclick="getAll()">Fetch All</button>
+  </div>
 
-<h3>Get Product</h3>
-<input type="number" id="getId" placeholder="Product ID" />
-<button onclick="getOne()">Fetch Product</button>
+  <div class="section">
+    <h3>Get Product</h3>
+    <input type="number" id="getId" placeholder="Product ID" />
+    <button onclick="getOne()">Fetch Product</button>
+  </div>
 
-<h3>Delete Product</h3>
-<input type="number" id="deleteId" placeholder="Product ID" />
-<button onclick="deleteProduct()">Delete Product</button>
+  <div class="section">
+    <h3>Delete Product</h3>
+    <input type="number" id="deleteId" placeholder="Product ID" />
+    <button onclick="deleteProduct()">Delete Product</button>
+  </div>
 
-<h3>Response</h3>
-<pre id="output">{}</pre>
+  <h3>Response</h3>
+  <pre id="output">{}</pre>
 
-<script>
-const output = document.getElementById("output");
+  <script>
+    const output = document.getElementById("output");
 
-function show(data) {
-  output.textContent = JSON.stringify(data, null, 2);
-}
+    function show(data) {
+      output.textContent = JSON.stringify(data, null, 2);
+    }
 
-document.getElementById("createForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+    document.getElementById("createForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-  const data = {
-    storeId: Number(storeId.value),
-    storeName: storeName.value,
-    productId: Number(productId.value),
-    productName: productName.value,
-    price: Number(price.value)
-  };
+      const data = {
+        storeId: Number(document.getElementById("storeId").value),
+        storeName: document.getElementById("storeName").value,
+        productId: Number(document.getElementById("productId").value),
+        productName: document.getElementById("productName").value,
+        price: parseFloat(document.getElementById("price").value)
+      };
 
-  const res = await fetch("/products", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  });
+      try {
+        const response = await fetch("/products", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
 
-  show(await res.json());
-});
+        const result = await response.json();
+        show(result);
+      } catch (error) {
+        show({ error: "Failed to create product." });
+      }
+    });
 
-async function getAll() {
-  const res = await fetch("/products");
-  show(await res.json());
-}
+    async function getAll() {
+      try {
+        const response = await fetch("/products");
+        const result = await response.json();
+        show(result);
+      } catch (error) {
+        show({ error: "Failed to fetch products." });
+      }
+    }
 
-async function getOne() {
-  const res = await fetch(`/products/${getId.value}`);
-  show(await res.json());
-}
+    async function getOne() {
+      const id = document.getElementById("getId").value;
 
-async function deleteProduct() {
-  const res = await fetch(`/products/${deleteId.value}`, { method:"DELETE" });
-  show(await res.json());
-}
-</script>
+      try {
+        const response = await fetch(`/products/${id}`);
+        const result = await response.json();
+        show(result);
+      } catch (error) {
+        show({ error: "Failed to fetch product." });
+      }
+    }
+
+    async function deleteProduct() {
+      const id = document.getElementById("deleteId").value;
+
+      try {
+        const response = await fetch(`/products/${id}`, {
+          method: "DELETE"
+        });
+
+        const result = await response.json();
+        show(result);
+      } catch (error) {
+        show({ error: "Failed to delete product." });
+      }
+    }
+  </script>
 
 </body>
 </html>

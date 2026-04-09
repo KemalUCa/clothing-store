@@ -1,21 +1,28 @@
-// import child process to run commands
 const { execSync } = require("child_process");
 
-// run one test file with label
-function runTest(name, filePath) {
+const tests = [
+    {
+        file: "tests/kemal.test.js",
+        email: "kemalucler@gmail.com"
+    },
+    {
+        file: "tests/ali.test.js",
+        email: "ali@example.com"
+    },
+    {
+        file: "tests/farha.test.js",
+        email: "farha@example.com"
+    }
+];
+
+for (const item of tests) {
     try {
-        console.log(`\nRunning ${name} test...\n`);
+        execSync(`npx jest ${item.file} --runInBand --silent`, {
+            stdio: "pipe"
+        });
 
-        // execute jest for the given test file
-        execSync(`npx jest ${filePath} --runInBand --silent`, { stdio: "inherit" });
-
-        console.log(`\n${name} test completed successfully.\n`);
+        console.log(`${item.email} - getAll to show all product - 200 - PASSED`);
     } catch (error) {
-        console.log(`\n${name} test failed.\n`);
+        console.log(`${item.email} - getAll to show all product - 200 - FAILED`);
     }
 }
-
-// run tests sequentially
-runTest("Kemal", "tests/kemal.test.js");
-runTest("Farha", "tests/farha.test.js");
-runTest("Ali", "tests/ali.test.js");
