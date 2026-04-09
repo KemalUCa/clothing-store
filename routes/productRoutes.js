@@ -21,7 +21,7 @@ router.put("/products/:id", productController.updateProduct);
 router.delete("/products/:id", productController.deleteProduct);
 
 // INTEGRATION 
-router.get("/all-products", productController.getAllGroupProducts);
+router.get("/allproducts", productController.getAllGroupProducts);
 
 // export router
 module.exports = router;

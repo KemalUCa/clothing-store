@@ -2,7 +2,7 @@
 
 This project is a Node.js and Express-based REST API developed to manage products in a Clothing Store. It allows users to perform basic CRUD operations such as creating, retrieving, updating, and deleting products, with data stored in MongoDB Atlas.
 
-The application also integrates with other team members’ modules using API calls. An additional endpoint, GET /all-products, is used to fetch and combine product data from different deployed services, simulating a microservices-style architecture where independent systems communicate through HTTP requests.
+The application also integrates with other team members’ modules using API calls. An additional endpoint, GET /allproducts, is used to fetch and combine product data from different deployed services, simulating a microservices-style architecture where independent systems communicate through HTTP requests.
 
 A simple frontend interface is included to display products from all stores under a unified Group 7 Store view, while also providing an API testing section for the Clothing Store module.
 

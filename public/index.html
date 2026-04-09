@@ -191,7 +191,7 @@ function renderTable(id, products) {
 }
 
 async function loadGroupStores() {
-  const res = await fetch("/all-products");
+  const res = await fetch("/allproducts");
   const data = await res.json();
 
   renderTable(
