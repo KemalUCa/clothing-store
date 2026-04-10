@@ -7,109 +7,134 @@
 
 <style>
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  margin: 20px;
-  background: #eef2f7;
-  color: #222;
+  background: #eef4fb;
+  color: #1f2937;
 }
 
-h1 {
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+/* top header */
+.top-banner {
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+.top-banner h2 {
+  margin: 0;
+  color: #1661bc;
+}
+
+.top-banner p {
+  margin: 5px 0 0;
+  color: #555;
+}
+
+/* main title */
+.hero {
+  background: linear-gradient(135deg, #1661bc, #0d4c94);
+  color: white;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 30px;
 }
 
 .subtitle {
-  text-align: center;
-  color: #666;
-  margin-bottom: 25px;
-}
-
-button {
-  display: block;
-  margin: 0 auto 30px;
-  padding: 10px 20px;
-  border: none;
-  background: #1661bc;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
+  margin-top: 8px;
   font-size: 14px;
+  opacity: 0.9;
 }
 
-button:hover {
-  background: #0d4c94;
-}
-
+/* cards */
 .store-card {
   background: white;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  overflow: hidden;
 }
 
-.clothing {
-  border-left: 8px solid #ff7e5f;
-}
-
-.books {
-  border-left: 8px solid #8360c3;
-}
-
-.electronics {
-  border-left: 8px solid #43cea2;
-}
-
-h3 {
-  margin: 0 0 10px 0;
+.store-header {
+  padding: 18px;
+  color: white;
   text-align: center;
 }
 
+/* colors */
+.clothing .store-header {
+  background: #ff7e5f;
+}
+
+.books .store-header {
+  background: #8360c3;
+}
+
+.electronics .store-header {
+  background: #43cea2;
+}
+
+/* table */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
   table-layout: fixed;
 }
 
 th,
 td {
-  padding: 10px 14px;
-  border-bottom: 1px solid #ddd;
+  padding: 14px 18px;
+  border-bottom: 1px solid #eee;
 }
 
+/* header row */
 th {
-  background: #1661bc;
-  color: white;
+  background: #f5f8fc;
   text-align: center;
+  font-size: 15px;
+  font-weight: bold;
 }
 
+/* column alignment */
 th:nth-child(1),
 td:nth-child(1) {
-  width: 22%;
+  width: 18%;
   text-align: center;
 }
 
 th:nth-child(2),
 td:nth-child(2) {
-  width: 48%;
+  width: 52%;
   text-align: left;
 }
 
 th:nth-child(3),
 td:nth-child(3) {
   width: 30%;
-  text-align: right;
+  text-align: center;
+  font-weight: bold;
 }
 
+/* hover */
 tr:hover {
   background: #f5f9ff;
 }
 
+/* footer */
 footer {
+  margin-top: 30px;
   text-align: center;
-  margin-top: 40px;
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
 }
 </style>
@@ -117,99 +142,107 @@ footer {
 
 <body>
 
-<h1>Group 7 Store</h1>
-<p class="subtitle">Integrated Products View</p>
+<div class="container">
 
-<button onclick="loadGroupStores()">Load Products</button>
+  <!-- Algonquin Header -->
+  <div class="top-banner">
+    <h2>Algonquin College</h2>
+    <p>Computer Programming - Full Stack Application Project</p>
+  </div>
 
-<div class="store-card clothing">
-  <h3>Clothing Store (Kemal)</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Product ID</th>
-        <th>Product Name</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody id="clothingTable"></tbody>
-  </table>
+  <!-- Title -->
+  <div class="hero">
+    <h1>Group 7 Store</h1>
+    <p class="subtitle">Integrated Products View</p>
+  </div>
+
+  <!-- Clothing -->
+  <div class="store-card clothing">
+    <div class="store-header">
+      <h3>Clothing Store (Kemal)</h3>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="clothingTable"></tbody>
+    </table>
+  </div>
+
+  <!-- Books -->
+  <div class="store-card books">
+    <div class="store-header">
+      <h3>Book Store (Ali)</h3>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="booksTable"></tbody>
+    </table>
+  </div>
+
+  <!-- Electronics -->
+  <div class="store-card electronics">
+    <div class="store-header">
+      <h3>Electronics Store (Farha)</h3>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="electronicsTable"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    This project is student work for demonstration purposes only.
+  </footer>
+
 </div>
-
-<div class="store-card books">
-  <h3>Book Store (Ali)</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Product ID</th>
-        <th>Product Name</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody id="booksTable"></tbody>
-  </table>
-</div>
-
-<div class="store-card electronics">
-  <h3>Electronics Store (Farha)</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Product ID</th>
-        <th>Product Name</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody id="electronicsTable"></tbody>
-  </table>
-</div>
-
-<footer>
-  <p>
-    This project is a student work created for educational purposes only.
-    It is not intended for commercial use and may contain simulated or incomplete data.
-  </p>
-</footer>
 
 <script>
+// render products into table
 function renderTable(id, products) {
   const table = document.getElementById(id);
   table.innerHTML = "";
 
-  products.forEach((p) => {
+  products.forEach(p => {
     const row = document.createElement("tr");
-    const formattedPrice = `$${Number(p.price).toFixed(2)}`;
 
     row.innerHTML = `
       <td>${p.productId}</td>
       <td>${p.productName}</td>
-      <td>${formattedPrice}</td>
+      <td>$${Number(p.price).toFixed(2)}</td>
     `;
 
     table.appendChild(row);
   });
 }
 
+// fetch all products
 async function loadGroupStores() {
   const res = await fetch("/allproducts");
   const data = await res.json();
 
-  renderTable(
-    "clothingTable",
-    data.filter((p) => p.storeName?.toLowerCase().includes("clothing"))
-  );
-
-  renderTable(
-    "booksTable",
-    data.filter((p) => p.storeName?.toLowerCase().includes("book"))
-  );
-
-  renderTable(
-    "electronicsTable",
-    data.filter((p) => p.storeName?.toLowerCase().includes("electronics"))
-  );
+  renderTable("clothingTable", data.filter(p => p.storeName?.toLowerCase().includes("clothing")));
+  renderTable("booksTable", data.filter(p => p.storeName?.toLowerCase().includes("book")));
+  renderTable("electronicsTable", data.filter(p => p.storeName?.toLowerCase().includes("electronics")));
 }
 
+// auto load
 loadGroupStores();
 </script>
 
