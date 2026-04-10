@@ -1,3 +1,4 @@
+// import product model and node-fetch for API calls
 const Product = require("../models/productModel");
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args));
@@ -81,31 +82,16 @@ exports.deleteProduct = async (req, res) => {
     }
 };
 
-// INTEGRATION - GET all products from Group 7 stores
+// INTEGRATION - GET all products from working Group 7 stores
 exports.getAllGroupProducts = async (req, res) => {
     try {
         // my products from MongoDB
         const myProducts = await Product.find();
 
-        // my teammates' deployed links
-        const farhaUrl = "";  // Farha did not provide a URL
+        // active teammate API
         const aliUrl = "https://ali-bookstore.onrender.com/products";
 
-        let farhaProducts = [];
         let aliProducts = [];
-
-        // Farha products
-        try {
-            const farhaResponse = await fetch(farhaUrl);
-
-            if (!farhaResponse.ok) {
-                console.log(`Farha API error: ${farhaResponse.status}`);
-            } else {
-                farhaProducts = await farhaResponse.json();
-            }
-        } catch (error) {
-            console.log("Could not load Farha's products:", error.message);
-        }
 
         // Ali products
         try {
@@ -122,7 +108,6 @@ exports.getAllGroupProducts = async (req, res) => {
 
         const allProducts = [
             ...myProducts,
-            ...farhaProducts,
             ...aliProducts
         ];
 

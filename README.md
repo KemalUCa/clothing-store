@@ -1,19 +1,26 @@
 # Clothing Store API - Group 7
 
-This project is a Node.js and Express-based REST API developed to manage products in a Clothing Store. It allows users to perform basic CRUD operations such as creating, retrieving, updating, and deleting products, with data stored in MongoDB Atlas.
+This project is a Node.js and Express REST API for managing products in a Clothing Store. It supports basic CRUD operations (create, read, update, delete) using MongoDB Atlas for data storage.
+The application is integrated with other team members’ APIs. A custom endpoint (GET /allproducts) fetches and combines product data from multiple deployed services, simulating a simple microservices architecture.
 
-The application also integrates with other team members’ modules using API calls. An additional endpoint, GET /allproducts, is used to fetch and combine product data from different deployed services, simulating a microservices-style architecture where independent systems communicate through HTTP requests.
+A basic frontend interface is included to display products from all stores under a unified "Group 7 Store" view. An API testing section is also provided for interacting with the Clothing Store endpoints.
 
-A simple frontend interface is included to display products from all stores under a unified Group 7 Store view, while also providing an API testing section for the Clothing Store module.
+Testing is implemented using Jest and Supertest. The GET /products endpoint is tested to ensure it returns a 200 status code and a valid array, with output formatted as:
 
-Testing is implemented using Jest and Supertest. The GET /products endpoint is tested to ensure it returns a 200 status code and a valid array. The output follows the required format:
-"email@example.com - getAll to show all product - 200 - PASSED".
+`email@example.com - getAll to show all product - 200 - PASSED`.
 
-An automate.js script is used to run all test files sequentially, ensuring readable output and clear test results in the terminal.
+An automate.js script runs all test files sequentially and provides clear, readable output in the terminal.
 
-To run the project, install dependencies using `npm install`, create a `.env` file with your MongoDB connection string and port, and start the server using `npm run dev`. Tests can be executed using `npm test`, and all tests can be run sequentially using `npm run automate`.
+# How to Run
 
-The application is deployed on Render:
-https://clothing-store-saix.onrender.com
+1. Install dependencies: `npm install`
+2. Create a .env file with your MongoDB connection string and port.
+3. Start the server: `npm start`
+4. Run tests: `npm test`
+5. Run all tests sequentially: `npm run automate`
 
-This project demonstrates REST API development, integration of multiple services, automated testing, and collaborative development without code sharing.
+# Deployment
+
+`https://clothing-store-saix.onrender.com`
+
+This project demonstrates REST API development, service integration, automated testing, and collaborative development.
