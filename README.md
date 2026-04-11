@@ -21,6 +21,17 @@ An automate.js script runs all test files sequentially and provides clear, reada
 
 # Deployment
 
-`https://clothing-store-saix.onrender.com`
+## API Endpoints
 
-This project demonstrates REST API development, service integration, automated testing, and collaborative development.
+Base URL:
+https://clothing-store-saix.onrender.com
+
+### Clothing Store (Own API)
+
+- GET /products → Retrieve all products from Clothing Store  
+  `https://clothing-store-saix.onrender.com/products`
+
+### Integrated Endpoint (Group 7)
+
+- GET /allproducts → Retrieve and combine products from all stores  
+  https://clothing-store-saix.onrender.com/allproducts
